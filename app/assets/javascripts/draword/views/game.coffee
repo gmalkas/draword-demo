@@ -15,7 +15,7 @@ class Draword.Views.Game extends Backbone.View
     }
 
   render: ->
-    this.$el.html(HandlebarsTemplates['game'](@templateContext()))
+    this.$el.html(HandlebarsTemplates['game'](this.templateContext()))
   
   joinGame: (event) ->
     event.preventDefault()
