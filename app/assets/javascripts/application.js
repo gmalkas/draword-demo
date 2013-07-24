@@ -10,5 +10,5 @@
 //= require_tree .
 
 $(function () {
-  new Draword.App();
+  window.App = new Draword.App();
 });
