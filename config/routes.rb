@@ -1,4 +1,4 @@
 DrawordDemo::Application.routes.draw do
   root 'home#index'
-  resources :games
+  resources :games, only: [:index, :show, :create]
 end
