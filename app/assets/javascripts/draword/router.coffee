@@ -5,9 +5,7 @@ class Draword.Router extends Backbone.Router
 
   home: ->
     console.log 'Welcome!'
-    view = new Draword.Views.Home()
-    $('#main').html(view.el)
-    view.render()
+    Draword.View.navigateTo(new Draword.Views.Home())
 
   joinGame: (id) ->
     console.log "You want to see #{id}"

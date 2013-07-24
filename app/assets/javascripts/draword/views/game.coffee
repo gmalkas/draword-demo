@@ -19,4 +19,4 @@ class Draword.Views.Game extends Backbone.View
   
   joinGame: (event) ->
     event.preventDefault()
-    console.log "You want to join game #{@game.id}"
+    Draword.View.navigateTo(new Draword.Views.GameBoard({ model: @game }))
