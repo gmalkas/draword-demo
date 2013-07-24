@@ -11,6 +11,7 @@ class Draword.Views.GameBoard extends Backbone.View
 
   setup: ->
     @game.on('sync', this.render, this)
+    App.currentUser.on('joined', this.join, this)
 
   templateContext: ->
     {
@@ -38,8 +39,7 @@ class Draword.Views.GameBoard extends Backbone.View
       alert('Please enter a username!')
       return
     else
-      @gameSession = App.currentUser.join(username, @game)
-      @gameSession.on('joined', this.join, this)
+      App.currentUser.join(username, @game)
 
-  join: ->
+  join: (gameSession) ->
     this.hideUsernamePrompt()

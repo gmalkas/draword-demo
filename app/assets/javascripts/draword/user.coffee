@@ -1,5 +1,6 @@
-class Draword.User extends Backbone.Events
+class Draword.User
   constructor: ->
+    _.extend @, Backbone.Events
     this.connect()
 
   connect: ->
@@ -7,12 +8,22 @@ class Draword.User extends Backbone.Events
     @dispatcher.on_open = =>
       console.log "Annnnnnnnd we're on!"
 
-  isPlaying: =>
+  currentGameSession: ->
+    !!this.getCurrentGameSession()
 
-  currentGameSession: =>
+  getCurrentGameSession: ->
+    @currentGameSession
 
-  join: (game) =>
-    new Draword.GameSession(game, @dispatcher)
+  join: (username, game) =>
+    @username = username
 
-  quit: =>
+    @dispatcher.trigger('game.join', { game: game, username: @username }, (message) =>
+      this.startGameSession(game)
+    )
 
+  startGameSession: (game) ->
+    @currentGameSession = new Draword.GameSession(game, @dispatcher)
+    this.trigger('joined', @currentGameSession)
+
+  getUsername: ->
+    @username
