@@ -1,5 +1,11 @@
 class Draword.View
   @navigateTo: (view) ->
-    $('body').empty()
-    $('body').append(view.el)
+    $('#main').empty()
+    $('#main').append(view.el)
     view.render()
+
+  @disable: ->
+    $('#main').css('opacity', '.5')
+
+  @enable: ->
+    $('#main').css('opacity', '1')

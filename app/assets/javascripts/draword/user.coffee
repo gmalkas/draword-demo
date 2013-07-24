@@ -1,4 +1,4 @@
-class Draword.User
+class Draword.User extends Backbone.Events
   constructor: ->
     this.connect()
 
@@ -9,9 +9,10 @@ class Draword.User
 
   isPlaying: =>
 
-  currentGame: =>
+  currentGameSession: =>
 
   join: (game) =>
+    new Draword.GameSession(game, @dispatcher)
 
   quit: =>
 

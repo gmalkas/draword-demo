@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#prompt {
+  left: 50%;
+  margin-left: -256px;
+  position: absolute;
+  margin-top: -36px;
+  top: 50%;
+  height: 36px;
+  width: 512px;
+
+  #username {
+    border: none;
+    border: 4px solid #eee;
+    border-radius: 6px;
+    font-size: 2em;
+    width: 100%;
+  }
+}
