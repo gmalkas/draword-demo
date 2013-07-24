@@ -3,6 +3,8 @@
 //= require backbone-rails
 //= require handlebars.runtime
 //= require draword.coffee
+//= require_tree ./draword/models
+//= require_tree ./draword/collections
 //= require_tree ./templates
 //= require_tree .
 
