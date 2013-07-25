@@ -17,7 +17,8 @@ class Draword.User
   join: (username, game) =>
     @username = username
 
-    @dispatcher.trigger('game.join', { game: game, username: @username }, (message) =>
+    @dispatcher.trigger('game.join', { game_id: game.id, username: @username }, (state) =>
+      _.extend game, state
       this.startGameSession(game)
     )
 
