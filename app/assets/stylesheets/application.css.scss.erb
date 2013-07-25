@@ -1,0 +1,183 @@
+/*
+ *= require_self
+ *= require_tree .
+ */
+
+@font-face {
+  font-family: "Collegia";
+  src: url(<%= asset_path "COLLEGIA.ttf" %>);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #FFF9EA;
+  font: normal 100% Helvetica, sans-serif;
+
+  > section {
+    margin: auto;
+    width: 75em;
+
+    > header {
+      margin: 1em;
+      text-align: center;
+
+      h1 {
+        color: #2B2B2B;
+        font: normal 3em "OptimusPrinceps", serif;
+      }
+
+      h2 {
+        font: normal 1em Helvetica;
+        text-shadow: 1px 1px #FFF;
+      }
+    }
+
+    #introduction {
+      article {
+        background: #D6C9A7;
+        border-radius: 6px;
+        display: inline-block;
+        margin: 1em;
+        padding: 1em;
+        vertical-align: top;
+        width: 20em;
+
+        header {
+          h1 {
+            color: #938357;
+            font: normal 1.5em "Collegia";
+            text-align: center;
+          }
+        }
+
+        p {
+          color: #7F7250;
+          font-size: .875em;
+          padding: .5em;
+
+          a {
+            color: #7F5A50;
+            font-size: 1.25em;
+            text-shadow: 1px 1px #FFF;
+          }
+        }
+      }
+    }
+
+    #create-room, #rooms {
+      header {
+        text-align: center;
+
+        h1 {
+          font: normal 2.5em "OptimusPrinceps", serif;
+        }
+      }
+    } 
+
+    #create-room {
+      form {
+        display: table;
+        margin: 1em auto;
+
+        input[type=text] {
+          background: #2B2B2B;
+          border: none;
+          border-right: none;
+          border-radius: 6px;
+          color: #FFF;
+          display: inline-block;
+          font-size: 1.25em;
+          padding: .5em;
+          margin: 0 .5em;
+          width: 25em;
+        }
+
+        input[type=submit] {
+          background: #2B2B2B;
+          border: none;
+          border-left: none;
+          border-radius: 6px;
+          color: #EEE;
+          display: inline-block;
+          font-weight: bold;
+          font-size: 1.25em;
+          padding: .5em;
+
+          &:hover {
+            background: #101010;
+          }
+        }
+      }
+    }
+
+    #rooms {
+      margin-top: 2em;
+
+      table {
+        border-collapse: collapse;
+        margin: 1em auto;
+        width: 35em;
+
+        tr {
+          border-bottom: 1px dashed #CCC;
+
+          th {
+            background: #2B2B2B;
+            color: #F0F0F0;
+            font: bold 1.25em Helvetica;
+            padding: .5em;
+            text-shadow: 1px 1px #101010;
+
+            &:first-child {
+              border-radius: 4px 0 0 0;
+              text-align: left;
+            }
+
+            &:last-child {
+              border-radius: 0 4px 0 0;
+              text-align: right;
+            }
+          }
+
+          td {
+            background-color: #F0F0F4;
+            padding: .5em;
+          }
+
+          .room {
+            a {
+              color: #4B4B4B;
+              font-size: 1.25em;
+              font-family: Collegia;
+              text-align: left;
+              text-decoration: none;
+              text-shadow: 1px 1px #FFF;
+              &:hover {
+                color: #2F2F2F;
+
+                &:after {
+                  content: " \2192"
+                }
+              }
+            }
+          }
+
+          .players {
+            color: #AA8888;;
+            font-family: Impact;
+            font-size: 1.25em;
+            text-align: right;
+          }
+
+          &:last-child {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+}

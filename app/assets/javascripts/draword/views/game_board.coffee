@@ -2,6 +2,7 @@ class Draword.Views.GameBoard extends Backbone.View
 
   events:
     'keypress #username': 'handleUsernameKeypress'
+    'keypress #send-chat': 'handleChatMessageKeypress'
 
   initialize: (options) ->
     super(options)
@@ -22,12 +23,12 @@ class Draword.Views.GameBoard extends Backbone.View
     this.$el.html(HandlebarsTemplates['game_board'](this.templateContext()))
 
   showUsernamePrompt: ->
-    this.$('#prompt').show()
-    Draword.View.disable()
+    this.$('#choose-username').show()
+    this.$('#game').css('opacity', '.2')
 
   hideUsernamePrompt: ->
-    this.$('#prompt').hide()
-    Draword.View.enable()
+    this.$('#choose-username').hide()
+    this.$('#game').css('opacity', '1')
 
   handleUsernameKeypress: (event) ->
     return unless event.keyCode == 13
@@ -43,3 +44,23 @@ class Draword.Views.GameBoard extends Backbone.View
 
   join: (gameSession) ->
     this.hideUsernamePrompt()
+
+    @gameSession = gameSession
+    @gameSession.on 'chat:message', (message) =>
+      view = new Draword.Views.ChatMessage(message)
+      this.getChatList().append(view.el)
+      view.render()
+
+  getChatList: ->
+    this.$('#messages')
+
+  handleChatMessageKeypress: (event) ->
+    return unless event.keyCode == 13
+
+    event.preventDefault()
+    message = this.$('#send-chat').val()
+
+    return if message == ''
+
+    @gameSession.sendChatMessage(message)
+    this.$('#send-chat').val('')

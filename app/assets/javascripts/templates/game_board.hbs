@@ -1,26 +1,132 @@
-<form id="prompt" action="" method="">
-  <input type="text" id="username" placeholder="Enter your name to join..." />
-</form>
-
-<header>
-  <h1>{{title}}</h1>
-</header>
-
-<section id="guesses">
-  <form action="" method="">
-    <input type="text" id="guess" placeholder="Enter your guess..." />
-  </form>
-
-  <ul>
-  </ul>
-</section>
-
-<section>
-  <canvas width="500" height="750" id="drawing"></canvas>
-</section>
-
-<section id="chat">
+<section id="choose-username">
   <header>
-    <h1>Chat</h1>
+    <h1>Please choose a username to join the game</h1>
   </header>
+
+  <p id="join-error" style="color: #AA8888; font-weight: bold;"></p>
+
+  <form method="post" action="">
+    <input type="text" name="username" id="username" placeholder="Username..." />
+  </form>
+  
+</section>
+
+<section id="game">
+  <section id="leaderboard">
+    <table id="players">
+      <tr>
+        <td class="name">1. Aceltis</td>
+      </tr>
+      <tr>
+        <td class="name">2. Janitrix</td>
+      </tr>
+      <tr>
+        <td class="name">3. KikooLol</td>
+      </tr>
+    </table>
+
+  </section>
+
+  <section id="guesses">
+    <form method="post" action="">
+      <input type="text" name="name" id="name" placeholder="Enter your guess here..." />
+    </form>
+
+    <header>
+      <h1>Previous guesses</h1>
+    </header>
+
+    <table id="guesses-table">
+    </table>
+
+  </section>
+
+  <script>
+    var startX = 0;
+    var startY = 0;
+    var drawing = false;
+
+    function getCanvas() {
+      return document.getElementById('drawing-board');
+    }
+
+    function getContext() {
+      return getCanvas().getContext('2d');
+    }
+
+    function getMousePos(canvas, evt) {
+      var mouseX = evt.clientX - canvas.offsetLeft;
+      var mouseY = evt.clientY - canvas.offsetTop;
+      return {
+        x: mouseX,
+        y: mouseY
+      };
+    }
+
+    function drawLine(context, fromX, fromY, toX, toY) {
+      context.stroke(); 
+    }
+
+    function start_drawing(evt) {
+      position = getMousePos(getCanvas(), evt);
+      startX = position.x;
+      startY = position.y;
+      drawing = true;
+
+      // Set up context
+      context = getContext();
+      context.beginPath();
+      context.moveTo(startX, startY);
+    }
+
+    function draw(evt) {
+      if (drawing) {
+        context = getContext();
+        position = getMousePos(getCanvas(), evt);
+        context.lineTo(position.x, position.y);
+        context.stroke();
+      }
+    }
+
+    function stop_drawing(evt) {
+      drawing = false;
+      return false;
+    }
+
+    window.onload = function() {
+      var canvas = getCanvas();
+      var context = getContext();
+
+      context.beginPath();
+      context.lineTo(10, 10);
+      context.stroke();
+      context.lineWidth = 5;
+
+      canvas.addEventListener('mousedown', start_drawing, false);
+      canvas.addEventListener('mousemove', draw, false);
+      canvas.addEventListener('mouseup', stop_drawing, false);
+      canvas.addEventListener('mouseout', stop_drawing, false);
+    };
+
+  </script>
+
+  <section id="drawing">
+    <p id="game-info">
+      <span class="round">{{title}}</span>
+    </p>
+    <canvas id="drawing-board" height="512" width="512"></canvas>
+  </section>
+
+  <section id="chat">
+    <header>
+      <h1>Chat</h1>
+    </header>
+
+    <table id="messages">
+    </table>
+
+    <form action="">
+      <input type="text" id="send-chat" placeholder="Say something..." />
+    </form>
+  </section>
 </section>
