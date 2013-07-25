@@ -1,6 +1,14 @@
 class Game < ActiveRecord::Base
+  after_initialize :setup
+
+  def setup
+    @players = []
+    @word = "Banana"
+    @status = "ingoing"
+  end
+
   def players
-    @players ||= []
+    @players
   end
 
   def add_player(player_id, username)
@@ -13,5 +21,12 @@ class Game < ActiveRecord::Base
 
   def channel
     "game-#{id}"
+  end
+
+  def as_json(options = {})
+    h = super(options)
+    h[:players] = players
+    h[:status] = @status
+    h
   end
 end

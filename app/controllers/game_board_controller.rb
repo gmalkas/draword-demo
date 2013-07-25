@@ -28,7 +28,7 @@ class GameBoardController < WebsocketRails::BaseController
 
     WebsocketRails[game.channel].trigger(:player_joined, { name: username, player_id: session[:player_id] })
     
-    trigger_success({ game: game })
+    trigger_success(game)
   end
 
   private
