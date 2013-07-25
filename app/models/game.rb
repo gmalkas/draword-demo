@@ -3,7 +3,7 @@ class Game < ActiveRecord::Base
 
   def setup
     @players = []
-    @word = "Banana"
+    @word = "sun"
     @status = "ingoing"
   end
 
