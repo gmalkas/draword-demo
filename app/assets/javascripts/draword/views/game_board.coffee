@@ -3,6 +3,7 @@ class Draword.Views.GameBoard extends Backbone.View
   events:
     'keypress #username': 'handleUsernameKeypress'
     'keypress #send-chat': 'handleChatMessageKeypress'
+    'keypress #send-guess': 'handleGuessKeypress'
 
   initialize: (options) ->
     super(options)
@@ -60,6 +61,14 @@ class Draword.Views.GameBoard extends Backbone.View
     @gameSession.on 'player:left', (player) =>
       @playerListView.removePlayer(player)
 
+    @gameSession.on 'guess:new', (guess) =>
+      view = new Draword.Views.Guess(guess)
+      this.getGuessList().append(view.el)
+      view.render()
+
+    @gameSession.on 'game:over', (state) =>
+      this.showGameOver(state.winner)
+
     _.each @gameSession.getPlayers(), (player) =>
       @playerListView.addPlayer(player)
 
@@ -73,8 +82,15 @@ class Draword.Views.GameBoard extends Backbone.View
 
     this.$('.role').html(HandlebarsTemplates['drawer'](context))
 
+  showGameOver: (winner) =>
+    alert(winner + ' has won!')
+    window.location = '/'
+
   getChatList: ->
     this.$('#messages')
+
+  getGuessList: ->
+    this.$('#guesses-table')
 
   handleChatMessageKeypress: (event) ->
     return unless event.keyCode == 13
@@ -86,3 +102,14 @@ class Draword.Views.GameBoard extends Backbone.View
 
     @gameSession.sendChatMessage(message)
     this.$('#send-chat').val('')
+
+  handleGuessKeypress: (event) ->
+    return unless event.keyCode == 13
+
+    event.preventDefault()
+    guess = this.$('#send-guess').val()
+
+    return if guess == ''
+
+    @gameSession.sendGuess(guess)
+    this.$('#send-guess').val('')

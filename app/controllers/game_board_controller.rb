@@ -31,6 +31,22 @@ class GameBoardController < WebsocketRails::BaseController
     trigger_success({ game: game, id: session[:player_id] })
   end
 
+  def guess
+    trigger_failure({ error: 'Must have joined a game!' }) unless isPlaying?
+
+    game = find_game currentSession[:game_id]
+    trigger_failure({ error: 'Game not found' }) unless game
+    
+    guess = message[:word]
+
+    correct = game.correct_guess? guess
+    broadcast_message('guess:new', { game_id: game.id, username: currentSession[:username], word: guess, correct: correct })
+
+    if correct
+      broadcast_message('game:over', { game_id: game.id, winner: currentSession[:username], word: guess })
+    end
+  end
+
   private
 
   def find_game(id)

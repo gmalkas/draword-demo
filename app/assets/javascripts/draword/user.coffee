@@ -6,7 +6,7 @@ class Draword.User
   connect: ->
     @dispatcher = new WebSocketRails('localhost:3000/websocket')
     @dispatcher.on_open = =>
-      console.log "Annnnnnnnd we're on!"
+      console.log "And we're on!"
 
   currentGameSession: ->
     !!this.getCurrentGameSession()

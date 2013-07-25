@@ -164,6 +164,14 @@
         .player {
           color: #AA8888;;
         }
+
+        .correct {
+          color: green;
+        }
+
+        .incorrect {
+          color: red;
+        }
       }
     }
   }
@@ -200,8 +208,5 @@
         color: #CC7777;
       }
     }
-  }
-
-  #messages {
   }
 } 

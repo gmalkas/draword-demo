@@ -21,6 +21,10 @@ class Game < ActiveRecord::Base
     players.delete_if { |player| player.id == player_id }
   end
 
+  def correct_guess?(word)
+    @word == word
+  end
+
   def drawer
     @drawer
   end

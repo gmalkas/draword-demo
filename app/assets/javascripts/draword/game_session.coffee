@@ -17,12 +17,26 @@ class Draword.GameSession
     @channel.bind 'player:left', (player) =>
       this.trigger('player:left', player)
 
+    @dispatcher.bind 'guess:new', (guess) =>
+      return unless guess.game_id == @game.id
+      this.trigger('guess:new' , guess)
+
+    @dispatcher.bind 'game:over', (state) =>
+      return unless state.game_id == @game.id
+      this.trigger('game:over' , state)
+
   sendChatMessage: (content) ->
     message =
       'username': App.currentUser.getUsername()
       'content': content
-    
+
     @channel.trigger('chat:message', message)
+
+  sendGuess: (word) ->
+    guess =
+      'word': word
+
+    @dispatcher.trigger('game.guess', guess)
 
   getPlayers: ->
     @game.get('players')
