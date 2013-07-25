@@ -17,6 +17,9 @@ class Draword.GameSession
     @channel.bind 'player:left', (player) =>
       this.trigger('player:left', player)
 
+    @channel.bind 'drawing:update', (drawing) =>
+      this.trigger('drawing:update', drawing)
+
     @dispatcher.bind 'guess:new', (guess) =>
       return unless guess.game_id == @game.id
       this.trigger('guess:new' , guess)
@@ -49,3 +52,12 @@ class Draword.GameSession
 
   getWordToDraw: ->
     @game.get('word')
+
+  updateDrawing: (drawing) ->
+    return unless this.isDrawer()
+
+    data = {
+      'url': drawing
+    }
+
+    @channel.trigger('drawing:update', data)

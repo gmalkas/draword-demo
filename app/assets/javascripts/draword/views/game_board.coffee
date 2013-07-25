@@ -22,9 +22,18 @@ class Draword.Views.GameBoard extends Backbone.View
 
   render: ->
     this.$el.html(HandlebarsTemplates['game_board'](this.templateContext()))
+    this.addPlayerList()
+    this.addCanvas()
+
+  addPlayerList: ->
     @playerListView = new Draword.Views.PlayerList()
     this.$('#leaderboard').append(@playerListView.el)
     @playerListView.render()
+
+  addCanvas: ->
+    @drawing = new Draword.Views.DrawingCanvas()
+    this.$('#drawing').append(@drawing.el)
+    @drawing.render()
 
   showUsernamePrompt: ->
     this.$('#choose-username').show()
@@ -72,6 +81,10 @@ class Draword.Views.GameBoard extends Backbone.View
     _.each @gameSession.getPlayers(), (player) =>
       @playerListView.addPlayer(player)
 
+    @gameSession.on 'drawing:update', (drawing) =>
+      this.updateDrawing(drawing)
+
+    @drawing.enable() if @gameSession.isDrawer()
     this.showPlayerRole()
 
   showPlayerRole: ->
@@ -85,6 +98,9 @@ class Draword.Views.GameBoard extends Backbone.View
   showGameOver: (winner) =>
     alert(winner + ' has won!')
     window.location = '/'
+
+  updateDrawing: (drawing) ->
+    @drawing.update(drawing.url)
 
   getChatList: ->
     this.$('#messages')
