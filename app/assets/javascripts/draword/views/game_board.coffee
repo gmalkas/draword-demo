@@ -32,6 +32,7 @@ class Draword.Views.GameBoard extends Backbone.View
 
   addCanvas: ->
     @drawing = new Draword.Views.DrawingCanvas()
+    @drawing.on('drawing:updated', this.sendDrawing, this)
     this.$('#drawing').append(@drawing.el)
     @drawing.render()
 
@@ -84,6 +85,8 @@ class Draword.Views.GameBoard extends Backbone.View
     @gameSession.on 'drawing:update', (drawing) =>
       this.updateDrawing(drawing)
 
+    @drawing.update(@gameSession.getDrawing()) if @gameSession.hasDrawing()
+
     @drawing.enable() if @gameSession.isDrawer()
     this.showPlayerRole()
 
@@ -98,6 +101,10 @@ class Draword.Views.GameBoard extends Backbone.View
   showGameOver: (winner) =>
     alert(winner + ' has won!')
     window.location = '/'
+
+
+  sendDrawing: (data) ->
+    @gameSession.updateDrawing(data)
 
   updateDrawing: (drawing) ->
     @drawing.update(drawing.url)

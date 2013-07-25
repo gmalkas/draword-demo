@@ -53,6 +53,12 @@ class Draword.GameSession
   getWordToDraw: ->
     @game.get('word')
 
+  getDrawing: ->
+    @game.get('drawing')
+
+  hasDrawing: ->
+    !!this.getDrawing()
+
   updateDrawing: (drawing) ->
     return unless this.isDrawer()
 
@@ -61,3 +67,4 @@ class Draword.GameSession
     }
 
     @channel.trigger('drawing:update', data)
+    @dispatcher.trigger('game.drawing', data)

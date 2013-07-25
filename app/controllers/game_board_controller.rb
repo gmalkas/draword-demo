@@ -18,7 +18,7 @@ class GameBoardController < WebsocketRails::BaseController
     username = message[:username]
     game = find_game game_id
 
-    trigger_failure({ error: 'Game not found' }) unless game
+    trigger_failure({ error: 'Game not found' }) and return unless game
 
     session = start_session game_id, username
 
@@ -32,7 +32,7 @@ class GameBoardController < WebsocketRails::BaseController
   end
 
   def guess
-    trigger_failure({ error: 'Must have joined a game!' }) unless isPlaying?
+    trigger_failure({ error: 'Must have joined a game!' }) and return unless isPlaying?
 
     game = find_game currentSession[:game_id]
     trigger_failure({ error: 'Game not found' }) unless game
@@ -45,6 +45,18 @@ class GameBoardController < WebsocketRails::BaseController
     if correct
       broadcast_message('game:over', { game_id: game.id, winner: currentSession[:username], word: guess })
     end
+  end
+
+  def drawing
+    trigger_failure({ error: 'Must have joined a game!' }) and return unless isPlaying?
+
+    game = find_game currentSession[:game_id]
+    trigger_failure({ error: 'Game not found' }) and return unless game
+
+    trigger_failure({ error: 'Must be drawer!' }) and return unless game.drawer.id == currentSession[:player_id]
+
+    game.update_drawing(message[:url])
+
   end
 
   private

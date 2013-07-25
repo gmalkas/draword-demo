@@ -40,5 +40,6 @@ WebsocketRails::EventMap.describe do
   namespace :game do
     subscribe :join, :to => GameBoardController, :with_method => :join
     subscribe :guess, :to => GameBoardController, :with_method => :guess
+    subscribe :drawing, :to => GameBoardController, :with_method => :drawing
   end
 end

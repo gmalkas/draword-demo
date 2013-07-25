@@ -21,6 +21,10 @@ class Game < ActiveRecord::Base
     players.delete_if { |player| player.id == player_id }
   end
 
+  def update_drawing(data)
+    @drawing = data
+  end
+
   def correct_guess?(word)
     @word == word
   end
@@ -39,6 +43,7 @@ class Game < ActiveRecord::Base
     h[:status] = @status
     h[:drawer] = @drawer
     h[:word] = @word
+    h[:drawing] = @drawing if @drawing
     h
   end
 end
