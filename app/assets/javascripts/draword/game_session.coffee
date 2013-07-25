@@ -26,3 +26,12 @@ class Draword.GameSession
 
   getPlayers: ->
     @game.get('players')
+
+  isDrawer: ->
+    this.getDrawer().id == App.currentUser.id
+
+  getDrawer: ->
+    @game.get('drawer')
+
+  getWordToDraw: ->
+    @game.get('word')

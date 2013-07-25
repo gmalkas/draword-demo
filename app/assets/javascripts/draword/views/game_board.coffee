@@ -63,6 +63,16 @@ class Draword.Views.GameBoard extends Backbone.View
     _.each @gameSession.getPlayers(), (player) =>
       @playerListView.addPlayer(player)
 
+    this.showPlayerRole()
+
+  showPlayerRole: ->
+    context =
+      isDrawer: @gameSession.isDrawer()
+      word: @gameSession.getWordToDraw()
+      drawer: @gameSession.getDrawer().name
+
+    this.$('.role').html(HandlebarsTemplates['drawer'](context))
+
   getChatList: ->
     this.$('#messages')
 

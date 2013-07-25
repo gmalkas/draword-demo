@@ -12,11 +12,17 @@ class Game < ActiveRecord::Base
   end
 
   def add_player(player_id, username)
-    players << Struct.new(:id, :name).new(player_id, username)
+    player = Struct.new(:id, :name).new(player_id, username)
+    players <<  player
+    @drawer = player if @drawer.nil?
   end
 
   def remove_player(player_id)
     players.delete_if { |player| player.id == player_id }
+  end
+
+  def drawer
+    @drawer
   end
 
   def channel
@@ -27,6 +33,8 @@ class Game < ActiveRecord::Base
     h = super(options)
     h[:players] = players
     h[:status] = @status
+    h[:drawer] = @drawer
+    h[:word] = @word
     h
   end
 end
