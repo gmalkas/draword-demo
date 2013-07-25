@@ -97,6 +97,12 @@ class Draword.Views.GameBoard extends Backbone.View
       drawer: @gameSession.getDrawer().name
 
     this.$('.role').html(HandlebarsTemplates['drawer'](context))
+    
+    if @gameSession.isDrawer()
+      this.$('#send-guess').attr('disabled', true)
+      this.$('#send-guess').attr('placeholder', "You can't guess...")
+
+    this.$('#send-guess').attr('disabled', true) if @gameSession.isDrawer()
 
   showGameOver: (winner) =>
     alert(winner + ' has won!')
