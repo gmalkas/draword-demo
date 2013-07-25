@@ -7,8 +7,8 @@ class Draword.GameSession
     this.setup()
 
   setup: ->
-    @chat = @dispatcher.subscribe(@game.getChatChannel())
-    @chat.bind 'new', (message) =>
+    @channel = @dispatcher.subscribe(@game.getChannel())
+    @channel.bind 'chat:message', (message) =>
       this.trigger('chat:message', message)
 
   sendChatMessage: (content) ->
@@ -16,4 +16,4 @@ class Draword.GameSession
       'username': App.currentUser.getUsername()
       'content': content
     
-    @chat.trigger('new', message)
+    @channel.trigger('chat:message', message)

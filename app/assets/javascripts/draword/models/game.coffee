@@ -1,3 +1,3 @@
 class Draword.Models.Game extends Backbone.Model
-  getChatChannel: ->
+  getChannel: ->
     "game-#{this.id}"
