@@ -4,7 +4,7 @@ class Draword.User
     this.connect()
 
   connect: ->
-    @dispatcher = new WebSocketRails('localhost:3000/websocket')
+    @dispatcher = new WebSocketRails('10.12.200.193:3000/websocket')
     @dispatcher.on_open = =>
       console.log "And we're on!"
 

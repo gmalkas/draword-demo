@@ -1,6 +1,7 @@
 class Draword.Views.GameList extends Backbone.View
 
-  tagName: 'ul'
+  tagName: 'table'
+  id: 'games'
 
   initialize: (options) ->
     super(options)

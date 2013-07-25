@@ -43,6 +43,7 @@ class GameBoardController < WebsocketRails::BaseController
     broadcast_message('guess:new', { game_id: game.id, username: currentSession[:username], word: guess, correct: correct })
 
     if correct
+      game.reset
       broadcast_message('game:over', { game_id: game.id, winner: currentSession[:username], word: guess })
     end
   end

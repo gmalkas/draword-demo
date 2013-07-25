@@ -13,170 +13,104 @@
   padding: 0;
 }
 
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), "<%= asset_path 'OpenSans-Regular.ttf' %>" format('truetype');
+}
+
 body {
-  background: #FFF9EA;
-  font: normal 100% Helvetica, sans-serif;
+  background: #f1f1f1 url('<%= asset_path 'introduction-background.png' %>');
+  color: #2b2b2b;
+  font-family: 'Open Sans', Helvetica, Verdana, sans-serif;
 
-  > section {
+  #introduction {
     margin: auto;
-    width: 75em;
+    padding: 2em;
+    text-align: center;
+  }
+  
+  #create-room {
+    
+    text-align: center;
 
-    > header {
-      margin: 1em;
-      text-align: center;
-
-      h1 {
-        color: #2B2B2B;
-        font: normal 3em "OptimusPrinceps", serif;
-      }
-
-      h2 {
-        font: normal 1em Helvetica;
-        text-shadow: 1px 1px #FFF;
-      }
+    input[type=text] {
+      background: #2B2B2B;
+      border: none;
+      border-right: none;
+      border-radius: 6px;
+      color: #FFF;
+      display: inline-block;
+      font-size: 1.25em;
+      padding: .5em;
+      margin: 0 .5em;
+      width: 25em;
     }
 
-    #introduction {
-      article {
-        background: #D6C9A7;
-        border-radius: 6px;
-        display: inline-block;
-        margin: 1em;
-        padding: 1em;
-        vertical-align: top;
-        width: 20em;
-
-        header {
-          h1 {
-            color: #938357;
-            font: normal 1.5em "Collegia";
-            text-align: center;
-          }
-        }
-
-        p {
-          color: #7F7250;
-          font-size: .875em;
-          padding: .5em;
-
-          a {
-            color: #7F5A50;
-            font-size: 1.25em;
-            text-shadow: 1px 1px #FFF;
-          }
-        }
-      }
+    input[type=text]:focus {
+      border: none;
     }
+  }
+ 
+  #games {
+    border-collapse: collapse;
+    margin: 2em auto;
+    width: 35em;
 
-    #create-room, #rooms {
-      header {
-        text-align: center;
+    tr {
+      border-bottom: 1px dashed #CCC;
 
-        h1 {
-          font: normal 2.5em "OptimusPrinceps", serif;
+      th {
+        background: #2B2B2B;
+        color: #F0F0F0;
+        font: bold 1.25em Helvetica;
+        padding: .5em;
+        text-shadow: 1px 1px #101010;
+
+        &:first-child {
+          border-radius: 4px 0 0 0;
+          text-align: left;
+        }
+
+        &:last-child {
+          border-radius: 0 4px 0 0;
+          text-align: right;
         }
       }
-    } 
 
-    #create-room {
-      form {
-        display: table;
-        margin: 1em auto;
+      td {
+        background-color: #F0F0F4;
+        padding: .5em;
+      }
 
-        input[type=text] {
-          background: #2B2B2B;
-          border: none;
-          border-right: none;
-          border-radius: 6px;
-          color: #FFF;
-          display: inline-block;
+      .room {
+        a {
+          color: #4B4B4B;
           font-size: 1.25em;
-          padding: .5em;
-          margin: 0 .5em;
-          width: 25em;
-        }
-
-        input[type=submit] {
-          background: #2B2B2B;
-          border: none;
-          border-left: none;
-          border-radius: 6px;
-          color: #EEE;
-          display: inline-block;
-          font-weight: bold;
-          font-size: 1.25em;
-          padding: .5em;
-
+          font-family: Collegia;
+          text-align: left;
+          text-decoration: none;
+          text-shadow: 1px 1px #FFF;
           &:hover {
-            background: #101010;
+            color: #2F2F2F;
+
+            &:after {
+              content: " \2192"
+            }
           }
         }
       }
-    }
 
-    #rooms {
-      margin-top: 2em;
+      .players {
+        color: #AA8888;;
+        font-family: Impact;
+        font-size: 1.25em;
+        text-align: right;
+      }
 
-      table {
-        border-collapse: collapse;
-        margin: 1em auto;
-        width: 35em;
-
-        tr {
-          border-bottom: 1px dashed #CCC;
-
-          th {
-            background: #2B2B2B;
-            color: #F0F0F0;
-            font: bold 1.25em Helvetica;
-            padding: .5em;
-            text-shadow: 1px 1px #101010;
-
-            &:first-child {
-              border-radius: 4px 0 0 0;
-              text-align: left;
-            }
-
-            &:last-child {
-              border-radius: 0 4px 0 0;
-              text-align: right;
-            }
-          }
-
-          td {
-            background-color: #F0F0F4;
-            padding: .5em;
-          }
-
-          .room {
-            a {
-              color: #4B4B4B;
-              font-size: 1.25em;
-              font-family: Collegia;
-              text-align: left;
-              text-decoration: none;
-              text-shadow: 1px 1px #FFF;
-              &:hover {
-                color: #2F2F2F;
-
-                &:after {
-                  content: " \2192"
-                }
-              }
-            }
-          }
-
-          .players {
-            color: #AA8888;;
-            font-family: Impact;
-            font-size: 1.25em;
-            text-align: right;
-          }
-
-          &:last-child {
-            border-bottom: none;
-          }
-        }
+      &:last-child {
+        border-bottom: none;
       }
     }
   }

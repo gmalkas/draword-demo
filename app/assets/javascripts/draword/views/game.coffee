@@ -1,6 +1,6 @@
 class Draword.Views.Game extends Backbone.View
 
-  tagName: 'li'
+  tagName: 'tr'
 
   events:
     'click .join-game': 'joinGame'

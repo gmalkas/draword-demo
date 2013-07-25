@@ -19,5 +19,6 @@ class Draword.Views.Home extends Backbone.View
     event.preventDefault()
     title = this.$('#create-game').val()
     console.log "Creating game #{title}..."
+    this.$('#create-game').val('')
     @games.create
       title: title
