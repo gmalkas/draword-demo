@@ -1,9 +1,11 @@
 class Game < ActiveRecord::Base
   after_initialize :setup
+  
+  WORDS = %w(sun smile human)
 
   def setup
     @players = []
-    @word = "sun"
+    @word = WORDS.sample
     @status = "ingoing"
   end
 
@@ -20,6 +22,7 @@ class Game < ActiveRecord::Base
   def remove_player(player_id)
     players.delete_if { |player| player.id == player_id }
     @drawer = nil if @drawer.id == player_id
+    reset if players.empty?
   end
 
   def update_drawing(data)
@@ -33,6 +36,7 @@ class Game < ActiveRecord::Base
   def reset
     @drawer = nil
     @drawing = nil
+    @word = WORDS.sample
   end
 
   def drawer
