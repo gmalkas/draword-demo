@@ -24,6 +24,7 @@ class Draword.Views.GameBoard extends Backbone.View
     this.$el.html(HandlebarsTemplates['game_board'](this.templateContext()))
     this.addPlayerList()
     this.addCanvas()
+    this.$('#username').focus()
 
   addPlayerList: ->
     @playerListView = new Draword.Views.PlayerList()
