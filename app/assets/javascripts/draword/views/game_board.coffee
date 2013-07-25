@@ -21,6 +21,9 @@ class Draword.Views.GameBoard extends Backbone.View
 
   render: ->
     this.$el.html(HandlebarsTemplates['game_board'](this.templateContext()))
+    @playerListView = new Draword.Views.PlayerList()
+    this.$('#leaderboard').append(@playerListView.el)
+    @playerListView.render()
 
   showUsernamePrompt: ->
     this.$('#choose-username').show()
@@ -50,6 +53,15 @@ class Draword.Views.GameBoard extends Backbone.View
       view = new Draword.Views.ChatMessage(message)
       this.getChatList().append(view.el)
       view.render()
+
+    @gameSession.on 'player:joined', (player) =>
+      @playerListView.addPlayer(player)
+
+    @gameSession.on 'player:left', (player) =>
+      @playerListView.removePlayer(player)
+
+    _.each @gameSession.getPlayers(), (player) =>
+      @playerListView.addPlayer(player)
 
   getChatList: ->
     this.$('#messages')

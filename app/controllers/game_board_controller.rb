@@ -10,7 +10,7 @@ class GameBoardController < WebsocketRails::BaseController
     game = find_game currentSession[:game_id]
     game.remove_player currentSession[:player_id]
 
-    WebsocketRails[game.channel].trigger(:player_left, { player_id: currentSession[:player_id] })
+    WebsocketRails[game.channel].trigger('player:left', { id: currentSession[:player_id] })
   end
 
   def join
@@ -26,7 +26,7 @@ class GameBoardController < WebsocketRails::BaseController
 
     game.add_player session[:player_id], session[:username]
 
-    WebsocketRails[game.channel].trigger(:player_joined, { name: username, player_id: session[:player_id] })
+    WebsocketRails[game.channel].trigger('player:joined', { name: username, id: session[:player_id] })
     
     trigger_success(game)
   end
@@ -43,7 +43,7 @@ class GameBoardController < WebsocketRails::BaseController
     connection_store[:session]
   end
 
-  def isPlaying
+  def isPlaying?
     !connection_store[:session].nil?
   end
 
