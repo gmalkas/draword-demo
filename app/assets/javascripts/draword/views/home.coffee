@@ -20,5 +20,5 @@ class Draword.Views.Home extends Backbone.View
     title = this.$('#create-game').val()
     console.log "Creating game #{title}..."
     this.$('#create-game').val('')
-    @games.create
-      title: title
+    @games.create { title: title }, success: (game) =>
+      Draword.View.navigateTo(new Draword.Views.GameBoard({ model: game }))

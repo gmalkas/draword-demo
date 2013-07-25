@@ -63,9 +63,16 @@ class GameBoardController < WebsocketRails::BaseController
   private
 
   def find_game(id)
-    controller_store[:games].select do |game|
-      game.id == id
+    game = controller_store[:games].select do |g|
+      g.id == id
     end.first
+
+    unless game
+      game = Game.find id
+      controller_store[:games] << game
+    end
+
+    game
   end
 
   def currentSession
